@@ -6,17 +6,43 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import VueRouter from 'vue-router'
+import router from './routes'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import locale from 'element-ui/lib/locale/lang/zh-TW'
+import App from './components/App.vue'
+import store from './store/index.js'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.use(VueAxios, axios)
 
-const app = new Vue({
-    el: '#app'
+Vue.use(VueRouter)
+Vue.use(ElementUI, { locale })
+Vue.component('app',App)
+
+
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue')
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue')
+);
+
+
+var vm = new Vue({
+    el: '#app',
+    router,
+    store,
 });

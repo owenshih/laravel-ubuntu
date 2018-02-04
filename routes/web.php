@@ -11,6 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+//Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/fblogin', function(){
+    return view('fblogin');
 });
+
+Route::get('/fbreturn', function(){
+    return view('fbreturn');
+});
+
+Route::get('/apit', function(){
+    return view('apit');
+});
+
+Route::any('/login', function(){
+    return view('layouts.login');
+})->where(['all' => '.*']);
+
+Route::any('{all}', function(){
+    return view('layouts.master');
+})->where(['all' => '.*']);
